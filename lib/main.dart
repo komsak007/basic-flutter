@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'FoodMenu.dart';
 
 void main() {
   const app = Myapp();
@@ -28,27 +29,33 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int number = 0;
-
+  List<FoodMenu> menu = [
+    FoodMenu("กุ้งเผา", "500", "assets/images/1.jpg"),
+    FoodMenu("กระเพราะหมู", "80", "assets/images/2.jpg"),
+    FoodMenu("ส้มตำ", "50", "assets/images/3.jpg"),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('โปรแกรมนับเลข'),
-      ),
-      body: Center(
-          child: ListView(
-        children: getData(100),
-      )),
-    );
-  }
-
-  List<Widget> getData(int count) {
-    List<Widget> data = [];
-    for (var i = 0; i < count; i++) {
-      data.add(Text('รายการที่ ${i + 1}'));
-    }
-
-    return data;
+        appBar: AppBar(
+          title: const Text('เลือกเมนูอาหาร'),
+        ),
+        body: ListView.builder(
+            itemCount: menu.length,
+            itemBuilder: (BuildContext context, int index) {
+              FoodMenu food = menu[index];
+              return ListTile(
+                leading: Image.asset(
+                  food.img,
+                  height: 100,
+                  width: 100,
+                ),
+                title: Text(food.name),
+                subtitle: Text(food.price),
+                onTap: () {
+                  print("คุณเลือกเมนูอาหารคือ ${food.name}");
+                },
+              );
+            }));
   }
 }
